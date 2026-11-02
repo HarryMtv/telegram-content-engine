@@ -1,0 +1,73 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: content-engine-api
+    command: ["node", "--enable-source-maps", "dist/process/api.js"]
+    env_file:
+      - .env
+    # Без биндинга портов хоста: на Coolify 8080 занят самим Coolify,
+    # а трафик внутрь идёт через его Traefik-прокси по домену (UI → Domains).
+    # expose — внутренний порт стека: по нему Coolify привязывает домен к контейнеру.
+    expose:
+      - "8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  worker-light:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: content-engine-worker-light
+    command: ["node", "--enable-source-maps", "dist/process/worker-light.js"]
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: content-engine-scheduler
+    command: ["node", "--enable-source-maps", "dist/process/scheduler.js"]
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+
+  worker-mtproto:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: content-engine-worker-mtproto
+    command: ["node", "--enable-source-maps", "dist/process/worker-mtproto.js"]
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+
+  worker-agents:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: content-engine-worker-agents
+    command: ["node", "--enable-source-maps", "dist/process/worker-agents.js"]
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy

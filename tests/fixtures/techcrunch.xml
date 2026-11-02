@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>TechCrunch Test Fixture</title>
+    <link>https://techcrunch.com/</link>
+    <item>
+      <title>Anthropic open-sources its tokenizer</title>
+      <link>https://techcrunch.com/2026/08/19/anthropic-tokenizer?utm_source=twitter&amp;utm_campaign=launch</link>
+      <guid isPermaLink="false">tc-1001</guid>
+      <pubDate>Wed, 19 Aug 2026 08:00:00 GMT</pubDate>
+      <description><![CDATA[The company says the tokenizer matches its production stack.]]></description>
+    </item>
+    <item>
+      <title>Second article, newer</title>
+      <link>https://techcrunch.com/2026/08/19/second-article</link>
+      <guid isPermaLink="false">tc-1002</guid>
+      <pubDate>Wed, 19 Aug 2026 09:30:00 GMT</pubDate>
+      <description><![CDATA[Second article body snippet here.]]></description>
+    </item>
+    <item>
+      <title>Old article already processed</title>
+      <link>https://techcrunch.com/2026/08/17/old-article</link>
+      <guid isPermaLink="false">tc-1000</guid>
+      <pubDate>Mon, 17 Aug 2026 07:00:00 GMT</pubDate>
+      <description><![CDATA[This one is older than the cursor.]]></description>
+    </item>
+  </channel>
+</rss>

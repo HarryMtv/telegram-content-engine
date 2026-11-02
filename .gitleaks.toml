@@ -1,0 +1,15 @@
+title = "telegram-content-engine gitleaks config"
+
+[extend]
+useDefault = true
+
+# Дефолтное правило supabase-access-token требует ключевого слова "supabase"
+# рядом с присваиванием и не ловит токен в JSON (например, .mcp.json:
+# "Authorization": "Bearer sbp_…" в 90+ символах от слова "supabase") —
+# проверено на реально утёкшем PAT, дефолтная конфигурация его не нашла.
+# Поэтому ловим Supabase PAT по формату самого токена.
+[[rules]]
+id = "supabase-pat-format"
+description = "Supabase Personal Access Token (sbp_)"
+regex = '''sbp_[a-z0-9]{40}'''
+keywords = ["sbp_"]

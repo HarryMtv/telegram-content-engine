@@ -1,0 +1,45 @@
+{
+  "name": "N",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src tests",
+    "migrate": "node --env-file-if-exists=.env --enable-source-maps dist/process/migrate.js",
+    "seed": "node --env-file-if-exists=.env --enable-source-maps dist/process/seed.js",
+    "start:api": "node --env-file-if-exists=.env --enable-source-maps dist/process/api.js",
+    "start:scheduler": "node --env-file-if-exists=.env --enable-source-maps dist/process/scheduler.js",
+    "start:worker-light": "node --env-file-if-exists=.env --enable-source-maps dist/process/worker-light.js",
+    "start:worker-mtproto": "node --env-file-if-exists=.env --enable-source-maps dist/process/worker-mtproto.js",
+    "start:worker-agents": "node --env-file-if-exists=.env --enable-source-maps dist/process/worker-agents.js"
+  },
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "fastify": "^5.2.1",
+    "franc-min": "^6.2.0",
+    "grammy": "^1.35.0",
+    "kysely": "^0.28.0",
+    "linkedom": "^0.18.12",
+    "pg": "^8.16.0",
+    "pg-boss": "^10.2.0",
+    "rss-parser": "^3.13.0",
+    "telegram": "^2.26.22",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@types/node": "^22.15.0",
+    "@types/pg": "^8.15.0",
+    "eslint": "^9.28.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.33.0",
+    "vitest": "^3.2.0"
+  }
+}

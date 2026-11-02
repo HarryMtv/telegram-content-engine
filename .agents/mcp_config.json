@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+      "notion": {
+        "serverUrl": "https://mcp.notion.com/mcp"
+      },
+      "supabase": {
+        "command": "npx",
+        "args": ["-y", "@supabase/mcp-server-supabase", "--read-only", "--project-ref=<REF>"]
+      }
+    }
+  }
+  

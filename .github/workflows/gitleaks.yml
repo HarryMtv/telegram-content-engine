@@ -1,0 +1,19 @@
+# Проверка на секреты в коде и git-истории (см. .gitleaks.toml).
+# v2 action умер 2026-09-16 вместе с Node 20 на раннерах — используем v3.
+name: gitleaks
+
+on: [push, pull_request]
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # полная история, чтобы сканировались и прошлые коммиты
+      - uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Для личного аккаунта GITLEAKS_LICENSE не нужен (только для организаций).
+          # Дефолтный автодетект ищет gitleaks.toml; наш файл точечный — указываем явно.
+          GITLEAKS_CONFIG: .gitleaks.toml
